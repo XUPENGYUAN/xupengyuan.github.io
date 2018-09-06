@@ -1,136 +1,292 @@
-<?php
-include 'header.php';
+<!DOCTYPE HTML>
+<html>
+<head>
+    <!--BEGIN HEAD MATE-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="initial-scale=1.0,width=device-width"/>
+    <meta name="keywords" content="XUPENGYUAN">
+    <meta name="description" content="XXX">
+    <meta name="author" content="XU PENGYUAN">
+    <meta name="version" content="1.0.0">
+    <!--END HEAD MATE-->
 
+    <!--BEGIN HEAD LINK SHORTCUT ICON-->
+    <link rel="shortcut icon" href="images/icon/zhihuawei_favicon32x32.ico">
+    <!--END HEAD LINK SHORTCUT ICON-->
 
-$sp->table_name = "tools_list";
-if(getParam('url')){
+    <!--BEGIN HEAD LINK STYLE-->
+    <!--BASE STYLE CSS-->
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
+    <!--PRODUCTION PHOTO CSS-->
+    <link rel="stylesheet" href="css/productionPhoto.css" type="text/css" media="screen"/>
+    <!--PRINT CSS-->
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print"/>
+    <!--END HEAD LINK STYLE-->
 
-  $tools_url=$sp->find(array("tools_url= '".deepEscape(getParam('url'))."'"),constant("Desc"),"*");
-  
-  if($tools_url['type']=='0'){
-    $url = constant("Tools_url").$tools_url['tools_url'];
-  }elseif($tools_url['type']=='1'){
-    $url = 'http://'.$tools_url['tools_url'];
-    $numbers = $sp->incr(array('id'=>$tools_url['id']),'tools_number');
-  }else{$url = '/';}
-  exit("<script language='javascript'>layer.msg('跳转中……', {icon: 16,shade: 0.01});window.location.href='".$url."';</script>");
-}else{
-  if(getParam('sort')){
-    echo '<style>#choose-tool{display:none;}</style>';
-    $tools_list=$sp->findall(array("tools_type= '".deepEscape(getParam('sort'))."'and state=0"),constant("Desc"),"*");//查询分类
-  }else{
-    $tools_list=$sp->findall(array('state'=>'0'),constant("Desc"),"*");
-  }
-}
+    <!--BEGIN HEAD TITLE-->
+    <title>XU PENGYUAN - MYSELF.</title>
+    <!--END HEAD TITLE-->
+</head>
+<body>
 
+<!--BEGIN STICKER-->
+<div id="sticker"></div>
+<!--END STICKER-->
 
-if(constant('templates')=='1'){
-  ?>
-  <link rel="stylesheet" type="text/css" href="css/temp_one.css">
-  <div class="container centent" style="padding-bottom:20px;">
-    <div class="row row-xs">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="row">
-          <?php if(!$tools_list){echo '目前没有工具！';}?>
-          <?php foreach ($tools_list as $age) {
-            $toolsurl = constant("Tools_url").'?url='.$age['tools_url'];
-            ?>
+<!--BEGIN WRAPPER-->
+<div id="wrapper">
 
-            <div class="col-xs-12 col-sm-3 boxs">
-              <div class="item-inner">
-                <div class="item-hd">
-                  <a target="_blank" href="<?php echo $toolsurl;?>" class="item-icon"><img src="<?php echo $age['tools_img'];?>" width="48" height="48" alt="coderunner"></a>
-                  <h3><a target="_blank" href="<?php echo $toolsurl;?>"><?php echo $age['title'];?></a></h3>
-                  <span class="item-category">[<a target="_blank" rel="nofollow" href="../?sort=<?php echo $age['tools_type'];?>"><?php echo $age['tools_type'];?></a>]</span>
-                  <a title="喜欢" class="likeable" href="javascript:ajax_love(<?php echo $age['id'];?>)" data-slug="coderunner" data-url="//<?php echo constant("Tools_url");?>" id="tools_love_<?php echo $age['id'];?>" <?php if ($_COOKIE["love_id_".$age['id']]) {echo 'style="color:red;"';}?>><i class="fa fa-heart"></i><var><?php echo $age['tools_love'];?></var></a>
-                  <a title="访问次数" class="see" data-slug="coderunner" data-url="<?php echo constant("Tools_url");?>" id="tools_<?php echo $age['id'];?>"><i class="fa fa-eye"></i><var><?php echo $age['tools_number'];?></var></a>
-                </div>
-                <div class="item-bd">
-                  <div class="item-desc" title="<?php echo $age['explains'];?>"><?php echo $age['explains'];?></div>
-                </div>
-                <div class="item-ft">
-                  <a target="_blank" class="item-link" href="<?php echo $toolsurl;?>"><?php echo $age['tools_url'];?></a>
-                  <a target="_blank" class="item-btn" href="<?php echo $toolsurl;?>">进入</a>
-                </div>
-              </div>
-            </div>
-            <?php }?>
-          </div>
+    <!--INTRODUCE NAME-->
+    <h2 id="titleName" class="sectionHead">XU PENGYUAN</h2>
+
+    <!--BASE INFORMATION-->
+    <div id="bio">
+        <h2>Full Stack Developer / Programmer</h2>
+        <!--BASE INFORMATION - SOCIAL LINKS-->
+        <div id="socialIcons">
+            <a class="socialIcon" id="phoneIcon" href="tel:15613687980" title="call me"></a>
+            <a class="socialIcon" id="emailIcon" href="#xxx@xxxxxxx.tw" title="xxx@xxxxxxx.tw"></a>
+            <a class="socialIcon" target="_blank" id="githubIcon" href="https://github.com/Awxxxxx" title="GitHub"></a>
+            <a class="socialIcon" id="qqIcon" href="http://wpa.qq.com/msgrd?v=3&uin=xxx@svip520.cn" title="xxx@svip520.cn"></a>
+            <a class="socialIcon" target="_blank" id="weiboIcon" href="https://weibo.com/xxxwqnmlgb" title="微博"></a>
+
+            <!--MORE ICON OPTIOPS...
+            <a class="socialIcon" target="_blank" id="facebookIcon" href="#"></a>
+            <a class="socialIcon" target="_blank" id="favIcon" href="#"></a>
+            <a class="socialIcon" target="_blank" id="gplusIcon" href="#"></a>
+            <a class="socialIcon" target="_blank" id="youTubeIcon" href="#"></a>
+            -->
         </div>
-      </div>
+        <!--END SOCIAL LINKS-->
+
+        <!--BASE INFORMATION - PERSONAL INFORMATION-->
+        <p>
+            I'm a web developer and bank-end programmer working and living in LangFang.
+            The full stack developer is my goal and it's my ideal to make programming to change the world.
+            I'm an active author on <a title="WeiBo" target="_blank" href="https://weibo.com/xxxwqnmlgb">WeiBo</a> where
+            i enjoy spending my day in writing technical blog to share.
+            Welcome to learn from each other.
+
+
+        </p>
+        <!--END PERSONAL INFORMATION-->
     </div>
-    <?php }else{
-/*拼音库用于首页分类卡片
- *作用不大，可用可不用
- *但是需要手动修改分类目录的class
- */
-include 'function.py.php';
-?>
-<link rel="stylesheet" type="text/css" href="/css/templates.css">
-<div class="container centent">
-  <ol class="breadcrumb" id="choose-tool">
-    <li class="active" data-class=".tool-item">
-      <span>所有工具</span></li>
-      <?php foreach($tools_navsort as $age){?><!--分类导航目录优先-->
-      <li data-class=".<?php if($age['tools_type']){echo pinyin($age['tools_type'], 'first');}else{echo 'qt';}?>">
-       <span><?php echo $age['tools_type'];?></span></li>
-       <?php }?>
-     </ol>
-     <div class="row">
-      <?php if(!$tools_list){echo '目前没有工具！';}?>
-      <?php foreach ($tools_list as $age) {
-       $toolsurl = constant("Tools_url").'?url='.$age['tools_url'];
-       ?>
-       <div class="col-sm-6 col-md-4 col-lg-3 tool-item <?php if($age['tools_type']){echo pinyin($age['tools_type'], 'first');}else{echo 'qt';}?>">
-        <a href="<?php echo $toolsurl;?>">
-          <div class="maple-tool-item image-shadow">
-            <span class="maple-tool-icon maple-tool-item-color<?php echo rand(1,6);?>"><?php echo mb_substr($age['title'],0,1,'utf-8');?></span>
-            <h3 class="maple-tool-name"><?php echo $age['title'];?></h3>
-            <span class="maple-tool-describe"><?php echo $age['explains'];?></span>
-            <div class="maple-tool-tags">
-              <span class="maple-tool-tag"  title="工具类型"><?php echo $age['tools_type'];?></span><span class="maple-tool-tag"  title="使用次数"><i class="fa fa-eye"></i> <?php echo $age['tools_number'];?></span><span class="maple-tool-tag"  title="点赞" onclick="ajax_love(<?php echo $age['id'];?>)" id="tools_love_<?php echo $age['id'];?>" <?php if ($_COOKIE["love_id_".$age['id']]) {echo 'style="color:red;"';}?>><i class="fa fa-heart"></i> <?php echo $age['tools_love'];?></span>
+    <!--END BASE INFORMATION-->
+
+    <div class="clear"></div>
+
+    <!--SKILLS TITLE-->
+    <h2 id="tools" class="sectionHead">Skills</h2>
+    <!--SKILLS-->
+    <ul id="skills">
+        <!--Notice: the class names indicate the % of your skills. i.e. s70 = 70%, s40 = 40% etc. -->
+        <li id="skill1" class="s95"><span>TOP</span></li>
+        <li id="skill2" class="s60"><span>JUNGLE</span></li>
+        <li id="skill3" class="s75"><span>MID</span></li>
+        <li id="skill4" class="s90"><span>ADC</span></li>
+        <li id="skill5" class="s65"><span>GANK</span></li>
+        <li id="skill6" class="s80"><span>KS</span></li>
+        <li id="skill7" class="s70"><span>KILL</span></li>
+        <li id="skill8" class="s80"><span>OUTPUT</span></li>
+        <li id="skill9" class="s40"><span><del>SUPPORT</del></span></li>
+    </ul>
+    <!--END SKILLS-->
+
+    <div class="clear"></div>
+
+    <!--EXPERIENCE TITLE-->
+    <h2 id="clock" class="sectionHead">Experience</h2>
+    <!--EXPERIENCE-->
+    <ul id="jobs">
+        <li>
+            <div class="details">
+                <h3>LangFang RongFeng Plastic Products.</h3>
+                <h4>PHP Developer - LangFang, HeBei</h4>
+                <h5>JUL 2018 - Present</h5>
             </div>
-            <span class="maple-tool-auth" title="工具作者">
-              <i class="fa fa-user-circle-o"></i> Youngxj</span>
-              <span class="maple-tool-in" title="点击打开工具">
-                <i class="fa fa-sign-in"></i> Open</span>
-              </div>
-            </a>
-          </div>
-          <?php }?>
-        </div>
-      </div>
-      <script>
-        $(function() {
-          $('#choose-tool li').click(function() {
-            if ($(this).attr('class') == 'active') return false;
-            $('.active').removeClass("active");
-            $(this).addClass("active");
-            if ($(this).data("class") !== ".tool-item") $(".tool-item").hide();
-            $($(this).data("class")).fadeIn(0);
-          });
-        });
-      </script>
-      <?php }?>
-      <?php
-      $sp->table_name = "tools_links";
-      $tools_links = $sp->findall(array('state'=>'0','type'=>'0'),"priority desc","*");
-      ?>
-      <div class="container links_">
-        <div class="links_bt">
-          <div class="links_bt_l">
-            <a href="javascript:;">友情链接</a>
-          </div>
-          <div class="links_bt_r">
-            <a href="../about" rel="nofollow" target="_blank">申请</a>
-          </div>
-        </div>
-        <div class="links_lb">
-          <ul>
-            <?php foreach($tools_links as $age){?>
-            <li><a href="<?php echo $age['url'];?>" title="<?php echo $age['description'];?>" target="_blank"><?php echo $age['name'];?></a></li>
-            <?php }?>
-          </ul>
-        </div>
-      </div>
-      <?php include 'footer.php';?>
+            <p>It is mainly engaged in the development of PHP, participating in the needs analysis, database design,
+                project development, demand analysis of the responsible module and the supply of solutions.</p>
+        </li>
+        <li>
+            <div class="details">
+                <h3>ShiJiaZhuang SERVICE CO.,LTD</h3>
+                <h4>Custom service - ShiJiaZhuang, HeBei</h4>
+                <h5>Oct 2017 - Apr 2018</h5>
+            </div>
+            <p>Responsible for answering customer calls, answering customer questions, handling customer complaints.</p>
+        </li>
+        
+    </ul>
+    <!--END EXPERIENCE-->
+
+    <div class="clear"></div>
+
+    <!--EDUCATION TITLE-->
+    <h2 id="learn" class="sectionHead">Education</h2>
+    <!--EDUCATION-->
+    <ul id="schools">
+        <li>
+            <div class="details">
+                <h3>Hebei Institute of Engineering and Technology</h3>
+                <h4>Degree Title - Bachelor</h4>
+                <h5>2014 - 2018</h5>
+            </div>
+            <p>Majored in communication engineering, with solid professional knowledge.</p>
+        </li>
+    </ul>
+    <!--END EDUCATION-->
+
+    <div class="clear"></div>
+
+    <!--HONORS / AWARDS TITLE-->
+    <h2 id="ribbon" class="sectionHead">Honors &amp; Awards</h2>
+
+    <!--HONORS / AWARDS-->
+    <ul id="honorsAwards">
+        
+        <li>UH...NOTHING..</li>
+     
+    </ul>
+    <!--END HONORS / AWARDS-->
+
+    <div class="clear"></div>
+
+    <!--AS SEEN ON TITLE-->
+    <h2 id="eye" class="sectionHead">As Seen On</h2>
+    <!--PROJECT-->
+    <ul id="project">
+        <li>
+            <div class="details">
+                <h3>Website construction and maintenance project</h3>
+                <h4>PC,Android,Ios</h4>
+                <h5>Mar 2018 - Now</h5>
+            </div>
+            <p>Independently complete the company's official website and Alibaba International Station construction and maintenance work, while optimizing SEO, production company video.</p>
+        </li>
+       
+    </ul>
+    <!--END PROJECT-->
+
+    <div class="clear"></div>
+
+    <!--AS SEEN ON-->
+    <ul id="seenOn">
+        <li class="bwWrapper"><img src="images/logos/abduzeedo.jpg" alt="Abduzeedo"/></li>
+        <li class="bwWrapper"><img src="images/logos/logo.png" alt="Awwwards"/></li>
+        <li class="bwWrapper"><img src="images/logos/creattica.png" alt="Creattica"/></li>
+        <li class="bwWrapper"><img src="images/logos/css_mania.png" alt="CSS Mania"/></li>
+        <li class="bwWrapper"><img src="images/logos/design_shack.png" alt="Design Shack"/></li>
+        <li class="bwWrapper"><img src="images/logos/envato_notes.png" alt="Envato Notes"/></li>
+        <li class="bwWrapper"><img src="images/logos/qnt_gallery.png" alt="qnt gallery"/></li>
+        <li class="bwWrapper"><img src="images/logos/unmatchedstyle.png" alt="unmatchedstyle"/></li>
+        <li class="bwWrapper"><img src="images/logos/wptv-logo.png" alt="WordPress TV"/></li>
+    </ul>
+    <!--END AS SEEN ON-->
+
+    <div class="clear"></div>
+
+    <!--RECOMMENDATIONS TITLE-->
+    <h2 id="chat" class="sectionHead">Recommendations</h2>
+    <!--RECOMMENDATIONS-->
+    <ul id="recommends">
+        <li><h3>ShiJiaZhuang SERVICE CO.,LTD.</h3></li>
+        <li>
+            <div class="details">
+                <h3>LI XX</h3>
+                <h4>General Manager</h4>
+            </div>
+            <p>"XU PENGYUAN's ability to work is very good and steady."</p>
+        </li>
+        <li>
+            <div class="details">
+                <h3>BAI XX</h3>
+                <h4>Project Manager</h4>
+            </div>
+            <p>"His ability to learn is very good, he will never need to ask for help, he will be able to solve it independently."</p>
+        </li>
+
+        <li><h3>LangFang RongFeng Plastic Products.</h3></li>
+        <li>
+            <div class="details">
+                <h3>CHEN XX</h3>
+                <h4>Foreign trade manager</h4>
+            </div>
+            <p>"I didn't expect to hire him to do so many things for the company. I feel that this little place is a little wronged."</p>
+        </li>
+
+        <li><h3>Hebei Institute of Engineering and Technology</h3></li>
+        <li>
+            <div class="details">
+                <h3>XXX</h3>
+                <h4>CLASSMATE</h4>
+            </div>
+            <p>"XU PENGYUAN, Professional ability is very strong, and the game is good, the character is good, good, is a friend worthy of deep friendship"</p>
+        </li>
+       
+    </ul>
+    <!--END RECOMMENDATIONS-->
+
+    <div class="clear"></div>
+
+    <!--CONTACT TITLE-->
+    <h2 id="contact" class="sectionHead">Contact Me</h2>
+    <!--CONTACT FORM-->
+    <div id="contactform" class="contact">
+        <form action="sendMail.php" method="post">
+            <div id="contactInfo">
+                <p>
+                    <label class="smallInput" for="name">Name <span class="required">*</span></label><br/>
+                    <input type="text" name="name" id="name" value="" class="input round3"/>
+                </p>
+                <p>
+                    <label class="smallInput" for="email">Email <span class="required">*</span></label><br/>
+                    <input type="text" name="email" id="email" value="" class="input round3"/>
+                </p>
+                <p>
+                    <label class="smallInput" for="phone">Phone</label><br/>
+                    <input type="text" name="phone" id="phone" value="" class="input round3"/>
+                </p>
+            </div>
+            <p id="emailMessage">
+                <label class="smallInput" for="message">Message <span class="required">*</span></label><br/>
+                <textarea name="message" id="message" class="input round3"></textarea>
+            </p>
+
+            <!-- EMAIL SUBJECT -->
+            <input name="subject" id="subject" type="hidden" value="XU PENGYUAN Resume Email Message"/>
+            <!-- YOUR EMAIL ADDRESS -->
+            <input name="repemail" id="repemail" type="hidden" value="xxx@xxxxxxx.tw"/>
+            <!-- ENTER YOUR URL BELOW: MUST CONTAIN #contact AT THE END OF THE URL-->
+            <input name="pagelink" id="pagelink" type="hidden" value="http://resume.zhihuawei.xyz/index.html#return"/>
+            <input name="send" id="submit_btn" type="submit" class="round3 clearRight" value="Send Message"/>
+
+            <p id="required"><span class="required">*</span> <em>= Required field</em></p>
+        </form>
+    </div>
+    <!--END CONTACT FORM-->
+    <p id="messageSent">Message sent. Thank you!</p>
+
+    <div class="clear"></div>
+</div>
+<!--END WRAPPER-->
+<!--COPYRIGHT-->
+<div id="copyright">&copy; 2018 - Designed and developed by
+    <a href="https://weibo.com/xxxwqnmlgb" target="_blank" title="XU PENGYUAN">XU PENGYUAN</a><br>
+    英文版&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="index_ch.html" title="中文版">中文版</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a
+            href="index.php" title="PHP版">PHP版</a>
+</div>
+<!--END COPYRIGHT-->
+
+<!--BEGIN SCRIPTS-->
+<!--BASIC JQUERY JS-->
+<script src="js/jquery.js"></script>
+<!--PROJECT PHOTO JS-->
+<script src="js/projectPhoto.js"></script>
+<!--BACK POSITION JS-->
+<script src="js/backPosition.js"></script>
+<!--CUSTOM JS-->
+<script src="js/custom.js"></script>
+<!--END SCRIPTS-->
+
+</body>
+</html>
